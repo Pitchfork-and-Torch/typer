@@ -32,6 +32,7 @@ from .core import (
     TyperGroup,
     TyperOption,
 )
+from .exceptions import TyperException
 from .models import (
     AnyType,
     ArgumentInfo,
@@ -52,7 +53,6 @@ from .models import (
     TyperInfo,
     TyperPath,
 )
-from .exceptions import TyperException
 from .utils import get_params_from_function
 
 _original_except_hook = sys.excepthook
@@ -1744,7 +1744,7 @@ def get_click_param(
             # --no-X/--X when the name already starts with "no-".
             if default_option_name.startswith("no-") and default_option_name != "no-":
                 positive = f"--{default_option_name}"
-                negative = f"--{default_option_name[len('no-'):]}"
+                negative = f"--{default_option_name[len('no-') :]}"
                 default_option_declaration = f"{positive}/{negative}"
             else:
                 default_option_declaration = (
